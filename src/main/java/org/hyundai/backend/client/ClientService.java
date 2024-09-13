@@ -32,17 +32,20 @@ public class ClientService {
         if (clientsPage.getContent().isEmpty()) {
             return MyResponse.builder()
                     .message("No clients found")
+                    .status(HttpStatus.NO_CONTENT)
                     .build();
         } else {
             List<ClientDTO> clients = clientsPage.stream().map(ClientDTO::fromEntity).collect(Collectors.toList());
             // Pagination infos
-            Map<String, Object> pagination = Map.of(
+            Map<String, Object> meta = Map.of(
                     "currentPage", clientsPage.getNumber() + 1,
                     "totalItems", clientsPage.getTotalElements(),
-                    "totalPages", clientsPage.getTotalPages());
+                    "totalPages", clientsPage.getTotalPages(),
+                    "size", size);
             return MyResponse.builder()
                     .data(clients)
-                    .pagination(pagination)
+                    .meta(meta)
+                    .status(HttpStatus.OK)
                     .build();
         }
     }
@@ -62,13 +65,14 @@ public class ClientService {
         } else {
             List<ClientDTO> clients = clientsPage.stream().map(ClientDTO::fromEntity).collect(Collectors.toList());
             // Pagination infos
-            Map<String, Object> pagination = Map.of(
+            Map<String, Object> meta = Map.of(
+                    "size", size,
                     "currentPage", clientsPage.getNumber() + 1,
                     "totalItems", clientsPage.getTotalElements(),
                     "totalPages", clientsPage.getTotalPages());
             return MyResponse.builder()
                     .data(clients)
-                    .pagination(pagination)
+                    .meta(meta)
                     .status(HttpStatus.OK)
                     .build();
         }
@@ -82,6 +86,7 @@ public class ClientService {
         // Return client DTO
         return MyResponse.builder()
                 .data(ClientDTO.fromEntity(client))
+                .status(HttpStatus.OK)
                 .build();
     }
 
@@ -99,6 +104,7 @@ public class ClientService {
         clientRepository.save(client);
         return MyResponse.builder()
                 .message("Client created successfully")
+                .status(HttpStatus.CREATED)
                 .build();
     }
 
@@ -116,6 +122,7 @@ public class ClientService {
         clientRepository.save(client);
         return MyResponse.builder()
                 .message("Client updated successfully")
+                .status(HttpStatus.OK)
                 .build();
     }
 
@@ -127,6 +134,7 @@ public class ClientService {
         clientRepository.delete(client);
         return MyResponse.builder()
                 .message("Client deleted successfully")
+                .status(HttpStatus.OK)
                 .build();
     }
 
