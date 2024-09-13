@@ -5,12 +5,18 @@ import org.hyundai.backend.utils.BasicEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @SuperBuilder
 @Entity
@@ -21,6 +27,7 @@ public class Vehicle extends BasicEntity {
     private Integer year;
     private Double price;
     private String color;
+    @Enumerated(EnumType.STRING)
     private VehicleStatus status;
 
     private Boolean isPromotion;
