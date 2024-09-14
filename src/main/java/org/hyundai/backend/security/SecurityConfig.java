@@ -47,7 +47,14 @@ public class SecurityConfig {
                     // Public endpoints
                     .requestMatchers("/api/v1/login").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers( "/api/v1/**").permitAll()
+                    // Users endpoints
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users/search").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/user/**").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/user").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/user/**").hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/user/**").hasAuthority("ADMIN")
+                    // Clients endpoints
                     .anyRequest().authenticated();
         });
         // Set the session management to stateless
@@ -86,7 +93,6 @@ public class SecurityConfig {
         // Return the provider
         return provider;
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
