@@ -1,12 +1,17 @@
 package org.hyundai.backend;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
 @SpringBootApplication
 public class BackendApplication {
+
+	private static final Logger logger = LoggerFactory.getLogger(BackendApplication.class);
 
 	public static void main(String[] args) {
 		// Load environment variables from .env file
@@ -21,6 +26,8 @@ public class BackendApplication {
 		setSystemProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
 		setSystemProperty("SERVER_PORT", dotenv.get("SERVER_PORT"));
 		setSystemProperty("CORS_ALLOWED_ORIGINS", dotenv.get("CORS_ALLOWED_ORIGINS"));
+
+
 
 		SpringApplication.run(BackendApplication.class, args);
 	}
