@@ -2,19 +2,15 @@ package org.hyundai.backend.auth;
 
 import java.util.Map;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.hyundai.backend.exception.MyAuthException;
 import org.hyundai.backend.jwt.JwtUtils;
 import org.hyundai.backend.user.User;
 import org.hyundai.backend.user.UserDTO;
-import org.hyundai.backend.user.UserRole;
 import org.hyundai.backend.user.UserService;
-import org.hyundai.backend.utils.MyErrorResponse;
 import org.hyundai.backend.utils.MyResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +43,7 @@ public class AuthService {
             User user = userService.findByUsername(request.getUsername());
             // Build the User DTO
             UserDTO userDTO = UserDTO.builder()
-                    .userId(user.getId())
+                    .id(user.getId())
                     .username(user.getUsername())
                     .role(user.getRole())
                     .build();
@@ -63,6 +59,7 @@ public class AuthService {
                     .status(HttpStatus.OK)
                     .build();
         } catch (Exception e) {
+            logger.error("Invalid credentials: " + e.getMessage());
             return MyResponse.builder()
                     .message("Invalid credentials: " + e.getMessage())
                     .status(HttpStatus.UNAUTHORIZED)
