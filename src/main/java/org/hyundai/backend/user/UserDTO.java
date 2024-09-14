@@ -12,16 +12,14 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private Long userId;
+    private Long id;
     private String username;
     private String name;
-    private String email;
-    private String phone;
+
     private String password;
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private UserRole role;
-    private Long departmentId;
 
     // Equals Method
     @Override
@@ -33,15 +31,11 @@ public class UserDTO {
 
         UserDTO userDTO = (UserDTO) o;
 
-        if (!getUserId().equals(userDTO.getUserId()))
+        if (!getId().equals(userDTO.getId()))
             return false;
         if (!getUsername().equals(userDTO.getUsername()))
             return false;
         if (!getName().equals(userDTO.getName()))
-            return false;
-        if (!getEmail().equals(userDTO.getEmail()))
-            return false;
-        if (!getPhone().equals(userDTO.getPhone()))
             return false;
         if (!getPassword().equals(userDTO.getPassword()))
             return false;
@@ -55,16 +49,42 @@ public class UserDTO {
     // HashCode Method
     @Override
     public int hashCode() {
-        int result = getUserId().hashCode();
+        int result = getId().hashCode();
         result = 31 * result + getUsername().hashCode();
         result = 31 * result + getName().hashCode();
-        result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getPhone().hashCode();
         result = 31 * result + getPassword().hashCode();
         result = 31 * result + getCreatedAt().hashCode();
         result = 31 * result + getUpdatedAt().hashCode();
         result = 31 * result + getRole().hashCode();
         return result;
+    }
+
+
+    // ToString Method
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "userId=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", role=" + role +
+                '}';
+    }
+
+    // ToDTO Method
+    public static UserDTO toDTO(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .password(user.getPassword())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
+                .role(user.getRole())
+                .build();
     }
 
 

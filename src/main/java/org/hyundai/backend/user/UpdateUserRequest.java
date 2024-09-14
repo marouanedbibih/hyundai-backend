@@ -1,6 +1,5 @@
 package org.hyundai.backend.user;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +19,8 @@ public class UpdateUserRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
-    private String email;
-
-    @NotBlank(message = "Phone is required")
-    private String phone;
-
     private String password;
+
+    @NotBlank(message = "Select a role")
+    private String role;
 }
