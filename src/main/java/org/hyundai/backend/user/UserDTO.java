@@ -80,7 +80,6 @@ public class UserDTO {
                 .id(user.getId())
                 .username(user.getUsername())
                 .name(user.getName())
-                .password(user.getPassword())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .role(user.getRole())
