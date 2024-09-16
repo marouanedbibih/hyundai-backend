@@ -51,6 +51,7 @@ public class UserController {
     }
 
     // Endpoint to create a user
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/api/v1/user")
     public ResponseEntity<MyResponse> create(@RequestBody @Valid UserRequest request) {
         MyResponse response = userService.create(request);

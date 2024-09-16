@@ -55,6 +55,19 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PUT, "/api/v1/user/**").hasAuthority("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/user/**").hasAuthority("ADMIN")
                     // Clients endpoints
+                    .requestMatchers(HttpMethod.GET, "/api/v1/clients").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/clients/search").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/client/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/client").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/client/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/client/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    // Vehicles endpoints
+                    .requestMatchers(HttpMethod.GET, "/api/v1/vehicles").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/vehicles/search").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/vehicle/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/vehicle").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/vehicle/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/vehicle/**").hasAnyAuthority("ADMIN", "SELLER", "AFFTER_SALES_MANAGER")
                     // Sales endpoints
                     .requestMatchers(HttpMethod.GET, "/api/v1/sales").hasAnyAuthority("ADMIN", "SELLER")
                     .requestMatchers(HttpMethod.GET, "/api/v1/sales/search").hasAnyAuthority("ADMIN", "SELLER")
@@ -62,6 +75,13 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/v1/sale").hasAnyAuthority("ADMIN", "SELLER")
                     .requestMatchers(HttpMethod.PUT, "/api/v1/sale/**").hasAnyAuthority("ADMIN", "SELLER")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/sale/**").hasAnyAuthority("ADMIN", "SELLER")
+                    // Affter sales endpoints
+                    .requestMatchers(HttpMethod.GET, "/api/v1/affter-sales").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/affter-sales/search").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/affter-sale/**").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/affter-sale").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/affter-sale/**").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/affter-sale/**").hasAnyAuthority("ADMIN", "AFFTER_SALES_MANAGER")
                     .anyRequest().authenticated();
         });
         // Set the session management to stateless
