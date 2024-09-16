@@ -1,4 +1,4 @@
-package org.hyundai.backend.service;
+package org.hyundai.backend.affterSale;
 
 import org.hyundai.backend.client.Client;
 import org.hyundai.backend.user.User;
@@ -6,25 +6,33 @@ import org.hyundai.backend.utils.BasicEntity;
 import org.hyundai.backend.vehicle.Vehicle;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "services")
+@Table(name = "affter_sales")
 @Data
 @SuperBuilder
-public class Service extends BasicEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class AffterSale extends BasicEntity {
 
-    private ServiceType type;
     private String description;
     private Double cost;
     private LocalDate appointment;
-    private ServiceStatus status;
+    @Enumerated(EnumType.STRING)
+    private AffterSaleStatus status;
+    @Enumerated(EnumType.STRING)
+    private AffterSaleType type;
 
     // Relationships
     @ManyToOne
@@ -44,9 +52,9 @@ public class Service extends BasicEntity {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (!(obj instanceof Service))
+        if (!(obj instanceof AffterSale))
             return false;
-        Service service = (Service) obj;
+            AffterSale service = (AffterSale) obj;
         return this.getId().equals(service.getId());
     }
 
@@ -70,5 +78,5 @@ public class Service extends BasicEntity {
                 ", user=" + user +
                 '}';
     }
-    
+
 }

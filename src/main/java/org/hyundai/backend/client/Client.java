@@ -2,8 +2,8 @@ package org.hyundai.backend.client;
 
 import java.util.List;
 
+import org.hyundai.backend.affterSale.AffterSale;
 import org.hyundai.backend.sale.Sale;
-import org.hyundai.backend.service.Service;
 import org.hyundai.backend.utils.BasicEntity;
 
 import jakarta.persistence.CascadeType;
@@ -34,7 +34,7 @@ public class Client extends BasicEntity {
     private List<Sale> salesList;
 
     @OneToMany(mappedBy = "client", cascade = { CascadeType.REMOVE })
-    private List<Service> servicesList;
+    private List<AffterSale> affterSalesList;
 
     // Equals method
     @Override

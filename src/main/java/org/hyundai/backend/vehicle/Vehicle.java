@@ -1,5 +1,8 @@
 package org.hyundai.backend.vehicle;
 
+import java.util.List;
+
+import org.hyundai.backend.affterSale.AffterSale;
 import org.hyundai.backend.sale.Sale;
 import org.hyundai.backend.utils.BasicEntity;
 
@@ -7,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -38,6 +42,9 @@ public class Vehicle extends BasicEntity {
     // Relationships
     @OneToOne(mappedBy = "vehicle")
     private Sale sale;
+
+    @OneToMany(mappedBy = "vehicle")
+    private List<AffterSale> affterSalesList;
 
     // Equals method
     @Override
