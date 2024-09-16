@@ -55,6 +55,13 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PUT, "/api/v1/user/**").hasAuthority("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/user/**").hasAuthority("ADMIN")
                     // Clients endpoints
+                    // Sales endpoints
+                    .requestMatchers(HttpMethod.GET, "/api/v1/sales").hasAnyAuthority("ADMIN", "SELLER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/sales/search").hasAnyAuthority("ADMIN", "SELLER")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/sale/**").hasAnyAuthority("ADMIN", "SELLER")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/sale").hasAnyAuthority("ADMIN", "SELLER")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/sale/**").hasAnyAuthority("ADMIN", "SELLER")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/sale/**").hasAnyAuthority("ADMIN", "SELLER")
                     .anyRequest().authenticated();
         });
         // Set the session management to stateless

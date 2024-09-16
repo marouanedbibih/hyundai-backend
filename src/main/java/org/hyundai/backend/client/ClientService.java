@@ -139,7 +139,7 @@ public class ClientService {
     }
 
     // Find a client by id
-    private Client findById(Long id) throws MyNotFoundException {
+    public Client findById(Long id) throws MyNotFoundException {
         return clientRepository.findById(id)
                 .orElseThrow(() -> {
                     return new MyNotFoundException(MyErrorResponse.builder()

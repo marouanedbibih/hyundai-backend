@@ -58,6 +58,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getResponse(), HttpStatus.NOT_FOUND);
     }
 
+    // Handle MyException
+    @ExceptionHandler(MyException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<MyErrorResponse> handleMyException(MyException ex) {
+        return new ResponseEntity<>(ex.getResponse(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     // Handle ValidationException
         @ExceptionHandler(MethodArgumentNotValidException.class)
         @ResponseStatus(HttpStatus.BAD_REQUEST)
